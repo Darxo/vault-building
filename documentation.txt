@@ -1,0 +1,45 @@
+### Description ###
+
+Adds a new building that can spawn in the world where you can store items indefinitely
+
+### Main Changes ###
+
+- Two Storage Vault Buildings will spawn at random T1 military settlements in new worlds.
+- The buildings can only be accessed once you have finished the Make Nobles Aware ambition
+- You can use these to permanently store items. Stored food however will still spoil.
+- Additional slots must first be unlocked through a one-time payment.
+- Some situations may temporarily disable the access to the warehouse
+
+- You can spawn Storage Vaults into existing savegames by calling  '::modVABU.spawnVaultBuildings(2)'  with a dev console mod
+
+### Requirements ###
+
+- Modding Script Hooks
+- Modding Standards and Utilities (MSU)
+
+### Known Issues: ###
+
+- onAddedToStash will give items that have no BougthAtPrice a price if you get them while at a town. This is just visual bug
+- spawning vaults into existing games has a ~50% of putting them into the top left corner. This is a vanilla bug.
+
+### Compatibility ###
+
+- Adding to existing savegames will have no immediated effect. You have to call '::modVABU.spawnVaultBuildings(2)' in this case
+- Can't be removed from running savegames unless you manage to remove all vault buildings from all cities
+
+### Future Plans: ###
+
+- uncomment line 607 and fix the problemns there. What are ItemOverlayImages??
+- use variables for the name of this building in all labels/descriptions so it can be changed globally
+- Move down the labels for amounts on the items down a bit now that the gold cost is gone
+- Feature to remove all vault buildings so this mod can be removed from savegames
+- Different prices depending on relation/renown/other situations
+- Vault shake needs to be applied to vault size label
+- Ability to store Tools, Ammunition, Medicine
+- New Heist-Event while camping during night by a town with a Vault?
+- Event where thief steals key during night to grant you an additional slot for the vault
+
+### Changes: ###
+
+0.1.0
+    - released on discord

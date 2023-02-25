@@ -1,0 +1,83 @@
+
+.world-town-screen > .l-shop-dialog-container .footer .left-footer-bar-vault
+{
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: 0;
+    width: 50%;
+    height: 4.3rem;
+    position: absolute;
+    margin: auto;
+    /*border:2px solid #CD1821;*/
+}
+
+.world-town-screen > .l-shop-dialog-container .footer .right-footer-bar-vault
+{
+    top: 0;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    height: 4.3rem;
+    position: absolute;
+    margin: auto;
+    /*border:2px solid hsl(313, 85%, 61%);*/
+}
+
+.world-town-screen > .l-shop-dialog-container .footer .right-slot-cost-container-vault
+{
+    top: 0;
+    left: 15%;
+    right: auto;
+    bottom: 0;
+    width: 17.5rem;
+    height: 4.3rem;
+    position: absolute;
+    margin: auto;
+}
+
+.world-town-screen > .l-shop-dialog-container .footer .l-button-bar-vault
+{
+    top: 0;
+    left: auto;
+    right: 30%;
+    bottom: 0;
+    width: 17.5rem;
+    height: 4.3rem;
+    position: absolute;
+}
+
+#vabu-vault-building-stash-size {
+    position: absolute;
+    /*border:2px solid #CD1821;*/
+    width: 2.4rem;
+    height: 2.4rem;
+    bottom: 0;
+    right: 20%;
+  }
+
+  #vabu-vault-building-stash-size img
+  {
+      top: -4.0rem;
+      left: 2.3rem;
+      bottom: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      position: absolute;
+      margin: auto;
+  }
+
+  #vabu-vault-building-stash-size .label
+  {
+      top: 0;
+      left: 0.0rem;
+      bottom: 0;
+      width: 7.2rem;
+      height: 2.0rem;
+      position: absolute;
+      margin: auto;
+
+      line-height: 2.0rem;
+      text-align: center;
+  }
