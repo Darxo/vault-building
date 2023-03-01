@@ -11,7 +11,7 @@
 		BaseCost = 100,
 		CostPerSlot = 25,	// Cost per already unlocked slot
 
-		SpawnDuringMapGeneration = true,	// If you use this mod just for its Storage-Building, make this false!
+		SpawnDuringMapGeneration = false,	// If you use this mod just for its Storage-Building, make this false!
 		IsUnlockedFromNoblesAware = false,	// Access to the vaults unlocks alongside the noble contracts
 		ClosedFromSituations = true		// Situation specific can cause the vault to temporarily close
 	}
