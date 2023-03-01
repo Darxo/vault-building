@@ -23,6 +23,7 @@ this.vabu_vault_building <- this.inherit("scripts/entity/world/settlements/build
 		this.m.Stash = this.new("scripts/items/stash_container");
 		this.m.Stash.setID("vault");
 		this.m.Stash.setResizable(false);
+        this.m.Stash.resize(::modVABU.Config.UnlockedSlots);
 		this.m.IsClosedAtNight = true;
 		this.m.Sounds = [
 			{
@@ -113,7 +114,6 @@ this.vabu_vault_building <- this.inherit("scripts/entity/world/settlements/build
 		];
 		this.m.SoundsAtNight = [];
 
-        this.m.Stash.resize(::modVABU.Config.UnlockedSlots);
 		this.m.VaultSpaceLimit = ::modVABU.Config.VaultSpaceLimit;
 	}
 

@@ -137,6 +137,8 @@ WorldTownScreenVaultDialogModule.prototype.destroyDIV = function ()
 
 WorldTownScreenVaultDialogModule.prototype.bindTooltips = function ()
 {
+    this.mLeaveButton.bindTooltip({ contentType: 'ui-element', elementId: TooltipIdentifier.WorldTownScreen.HireDialogModule.LeaveButton});
+
     WorldTownScreenShopDialogModule.prototype.bindTooltips.call(this);
 
     this.mVaultSlotsizeContainer.bindTooltip({ contentType: 'ui-element', elementId: TooltipIdentifier.Vault.FreeSlots });

@@ -9,12 +9,18 @@
 				{
 					id = 1,
 					type = "title",
-					text = "City Vault"
+					text = "Vault"
 				},
 				{
 					id = 2,
 					type = "description",
-					text = "A secure storage building that you can use to store items for later use."
+					text = "A secure place that you can use and upgrade to store items indefinitely."
+				},
+				{
+					id = 3,
+					type = "text",
+                    icon = "ui/icons/asset_food.png",
+					text = "Food will still spoil!"
 				}
 			];
 			if (::World.State.getCurrentTown() != null)
@@ -57,7 +63,7 @@
 				{
 					id = 1,
 					type = "title",
-					text = "Leave Vault"
+					text = "Leave"
 				},
 				{
 					id = 2,

@@ -3,6 +3,8 @@
     local oldGuaranteeAllBuildingsInSettlements = o.guaranteeAllBuildingsInSettlements;
     o.guaranteeAllBuildingsInSettlements = function()
     {
+        if (::modVABU.Config.SpawnDuringMapGeneration == false) return oldGuaranteeAllBuildingsInSettlements();
+
         if (::Const.World.Buildings.Vaults < ::modVABU.Const.GuaranteedVaults)
         {
             local vaultsToSpawn = ::modVABU.Const.GuaranteedVaults - ::Const.World.Buildings.Vaults;
