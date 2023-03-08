@@ -1,4 +1,4 @@
-::mods_hookNewObject("ui/screens/world/world_town_screen", function(o)  // I hope its only getting created once per game
+::mods_hookNewObject("ui/screens/world/world_town_screen", function(o)
 {
     o.m.VaultDialogModule <- ::new("scripts/ui/screens/world/modules/world_town_screen/town_vault_dialog_module");
     o.m.VaultDialogModule.setParent(o);

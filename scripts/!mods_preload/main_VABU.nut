@@ -9,7 +9,7 @@
 		VaultSpaceLimit = 60,	// Maximum amount of slots you can unlock in each Vault
 		UnlockedSlots = 5,		// Unlocked Slots at the start
 		BaseCost = 100,
-		CostPerSlot = 25,	// Cost per already unlocked slot
+		CostPerSlot = 20,	// Cost per already unlocked slot
 
 		SpawnDuringMapGeneration = false,	// If you use this mod just for its Storage-Building, make this false!
 		IsUnlockedFromNoblesAware = false,	// Access to the vaults unlocks alongside the noble contracts
@@ -30,11 +30,6 @@
     ::mods_registerJS("mod_VABU/enums.js");
 
     ::mods_registerCSS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen_vault_dialog_module.css");
-
-	::modVABU.calculateSlotPrice <- function (_currentSlots, _town = null)
-	{
-		return ::modVABU.Config.BaseCost + (::modVABU.Config.CostPerSlot * _currentSlots);
-	}
 
 	::Const.World.Buildings.Vaults <- 0;
 

@@ -29,7 +29,6 @@ Adds a new building that can spawn in the world where you can store items indefi
 
 ### Future Plans: ###
 
-- uncomment line 607 and fix the problemns there. What are ItemOverlayImages??
 - use variables for the name of this building in all labels/descriptions so it can be changed globally
 - Move down the labels for amounts on the items down a bit now that the gold cost is gone
 - Feature to remove all vault buildings so this mod can be removed from savegames

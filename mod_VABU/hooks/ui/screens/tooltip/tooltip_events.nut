@@ -87,8 +87,8 @@
 					text = "Permanently unlock a new storage slot in this vault."
 				}
 			];
-			local vault = ::World.State.getTownScreen().getVaultDialogModule().getShop().getStash();
-			if (vault.getCapacity() == ::modVABU.Config.VaultSpaceLimit)
+			local vault = ::World.State.getTownScreen().getVaultDialogModule().getShop();
+			if (vault.getStash().getCapacity() == vault.m.VaultSpaceLimit)
 			{
 				ret.push({
 					id = 5,
@@ -102,6 +102,7 @@
 
 		if (_elementId == "world-town-screen.vault-dialog-module.SlotCostLabel")
 		{
+			local vault = ::World.State.getTownScreen().getVaultDialogModule().getShop();
 			return [
 				{
 					id = 1,
@@ -117,13 +118,13 @@
 					id = 3,
 					type = "text",
 					icon = "ui/icons/asset_money.png",
-					text = "Base Cost: " + ::modVABU.Config.BaseCost
+					text = "Base Cost: " + vault.m.BaseCost
 				},
 				{
 					id = 4,
 					type = "text",
 					icon = "ui/icons/asset_money.png",
-					text = "Cost per already unlocked Slot: " + ::modVABU.Config.CostPerSlot
+					text = "Cost per already unlocked Slot: " + vault.m.CostPerSlot
 				}
 			];
 		}
@@ -180,7 +181,7 @@
 	{
 		if (_itemOwner == "world-town-screen-vault-dialog-module.stash")
 		{
-			local result = this.Stash.getItemByInstanceID(_itemId);
+			local result = ::Stash.getItemByInstanceID(_itemId);
 
 			if (result != null)
 			{

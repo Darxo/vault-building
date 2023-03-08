@@ -15,7 +15,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 
 		if (this.Tactical.isActive() == false)
 		{
-			this.m.Shop.getStash().sort();
+			this.getBuilding().getStash().sort();
 		}
 
 		this.loadVaultList();
@@ -62,13 +62,13 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 
 		// Because original call doesn't apply an ItemFilter. This may not be necessary if used with URUI mod in order to save performance
 		result.Shop = [];
-		::UIDataHelper.convertItemsToUIData(this.m.Shop.getStash().getItems(), result.Shop, ::Const.UI.ItemOwner.Shop, this.m.InventoryFilter);
+		::UIDataHelper.convertItemsToUIData(this.getBuilding().getStash().getItems(), result.Shop, ::Const.UI.ItemOwner.Shop, this.m.InventoryFilter);
 
 		result.VaultInventoryName <- "Storage";
-		result.VaultSpaceUsed <- this.m.Shop.getStash().getNumberOfFilledSlots();
-		result.VaultSpaceMax <- this.m.Shop.getStash().getCapacity();
-		result.VaultSpaceLimit <- this.m.Shop.m.VaultSpaceLimit;
-		result.NextSlotCost <- this.getCurrentSlotCost();
+		result.VaultSpaceUsed <- this.getBuilding().getStash().getNumberOfFilledSlots();
+		result.VaultSpaceMax <- this.getBuilding().getStash().getCapacity();
+		result.VaultSpaceLimit <- this.getBuilding().m.VaultSpaceLimit;
+		result.NextSlotCost <- this.getBuilding().getCurrentSlotPrice();
 
 		result.rawdelete("IsRepairOffered");	// We never need this
 
@@ -88,7 +88,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 			return null;
 		}
 
-		local shopStash = this.m.Shop.getStash();
+		local shopStash = this.getBuilding().getStash();
 
 		switch(sourceItemOwner)
 		{
@@ -266,7 +266,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 	function onBuySlotButtonPressed()
 	{
 		local currentMoney = ::World.Assets.getMoney();
-		local cost = this.getCurrentSlotCost();
+		local cost = this.getBuilding().getCurrentSlotPrice();
 
 		if (currentMoney - cost < 0)
 		{
@@ -277,10 +277,10 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		}
 
 		::World.Assets.addMoney(-cost);
-		this.m.Shop.getStash().resize(this.m.Shop.getStash().getCapacity() + 1);
+		this.getBuilding().getStash().resize(this.getBuilding().getStash().getCapacity() + 1);
 		local data = this.queryVaultList();
-		data.VaultSpaceMax <- this.m.Shop.getStash().getCapacity();
-		data.NextSlotCost <- this.getCurrentSlotCost();
+		data.VaultSpaceMax <- this.getBuilding().getStash().getCapacity();
+		data.NextSlotCost <- this.getBuilding().getCurrentSlotPrice();
 		data.Assets <- this.m.Parent.queryAssetsInformation();
 
 		return {
@@ -289,12 +289,17 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		};
 	}
 
+	function getBuilding()
+	{
+		return this.m.Shop;
+	}
+
 	function queryVaultList()
 	{
 		local result = {
 			Shop = []
 		};
-		::UIDataHelper.convertItemsToUIData(this.m.Shop.getStash().getItems(), result.Shop, ::Const.UI.ItemOwner.Shop, this.m.InventoryFilter);
+		::UIDataHelper.convertItemsToUIData(this.getBuilding().getStash().getItems(), result.Shop, ::Const.UI.ItemOwner.Shop, this.m.InventoryFilter);
 		return result;
 	}
 
@@ -303,19 +308,14 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		this.m.JSHandle.asyncCall("loadFromData", this.queryVaultList());
 	}
 
-	function getCurrentSlotCost()
-	{
-		return ::modVABU.calculateSlotPrice(this.m.Shop.getStash().getCapacity());
-	}
-
 	// Same method that's used in the asset_manager
 	function removeExpiredFood()
 	{
-		foreach( i, item in this.m.Shop.getStash().getItems() )
+		foreach( i, item in this.getBuilding().getStash().getItems() )
 		{
 			if (item != null && item.isItemType(::Const.Items.ItemType.Food))
 			{
-				if (::Time.getVirtualTimeF() >= item.getBestBeforeTime()) this.m.Shop.getStash().getItems()[i] = null;
+				if (::Time.getVirtualTimeF() >= item.getBestBeforeTime()) this.getBuilding().getStash().getItems()[i] = null;
 			}
 		}
 	}
@@ -327,7 +327,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		// These values never change while in the same screen
 		result.rawdelete("Title");
 		result.rawdelete("SubTitle");
-		result.rawdelete("VaultSpaceLimit");	// a bit redundant considering we are the once writing it in there in the first place
+		result.rawdelete("VaultSpaceLimit");	// a bit redundant considering we are the ones writing it in there in the first place
 
 		return result;
 	}

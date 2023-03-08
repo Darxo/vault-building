@@ -1,4 +1,4 @@
-::mods_hookNewObjectOnce("mapgen/templates/world/worldmap_generator", function(o)
+::mods_hookNewObject("mapgen/templates/world/worldmap_generator", function(o)
 {
     local oldGuaranteeAllBuildingsInSettlements = o.guaranteeAllBuildingsInSettlements;
     o.guaranteeAllBuildingsInSettlements = function()
