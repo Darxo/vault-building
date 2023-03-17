@@ -23,7 +23,10 @@
 {
 	::modVABU.Mod <- ::MSU.Class.Mod(::modVABU.ID, ::modVABU.Version, ::modVABU.Name);
 
-	::includeFiles(::IO.enumerateFiles("mod_VABU/hooks"));
+	foreach (file in ::IO.enumerateFiles("mod_VABU/hooks"))
+	{
+		::include(file);
+	}
 
     ::mods_registerJS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen_vault_dialog_module.js");
     ::mods_registerJS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen.js");

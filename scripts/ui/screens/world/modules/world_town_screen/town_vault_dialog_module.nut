@@ -82,11 +82,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		local targetItemIdx = _data[2];
 		local targetItemOwner = _data[3];
 
-		if (targetItemOwner == null)
-		{
-			this.logError("onSwapItem #1");
-			return null;
-		}
+		if (targetItemOwner == null) { ::logError("onSwapItem #1"); return null; }
 
 		local shopStash = this.getBuilding().getStash();
 
@@ -94,30 +90,26 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		{
 		case "world-town-screen-vault-dialog-module.stash":
 			local sourceItem = ::Stash.getItemAtIndex(sourceItemIdx);
-
 			if (sourceItem == null) { ::logError("onSwapItem(stash) #2"); return null; }
 
-			if (targetItemIdx == null)	// We right-clicked on an item from the shop:
+			if (targetItemIdx == null)	// We right-clicked on an item from the player stash:
 			{
-				if (shopStash.hasEmptySlot())
-				{
-					local removedItem = ::Stash.removeByIndex(sourceItemIdx);
-
-					if (removedItem != null)
-					{
-						removedItem.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
-						shopStash.add(removedItem);
-					}
-				}
-				else
+				if (!shopStash.hasEmptySlot())
 				{
 					return {
 						Result = ::Const.UI.Error.NotEnoughVaultSpace	// Shop error needed
 					};
 				}
+
+				local removedItem = ::Stash.removeByIndex(sourceItemIdx);
+				if (removedItem != null)
+				{
+					removedItem.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
+					shopStash.add(removedItem);
+				}
 			}
 
-			if (targetItemIdx != null && sourceItemOwner == targetItemOwner)	// wwe swapped an item within the stash
+			if (targetItemIdx != null && sourceItemOwner == targetItemOwner)	// we swapped an item within the stash
 			{
 				if (sourceItemOwner == targetItemOwner)
 				{
@@ -134,18 +126,11 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 				if (!this.Stash.isLastTakenSlot(sourceItemIdx))
 				{
 					local firstEmptySlotIdx = this.Stash.getFirstEmptySlot();
-
 					if (firstEmptySlotIdx != null)
 					{
-						if (::Stash.swap(sourceItemIdx, firstEmptySlotIdx))
-						{
-							sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
-						}
-						else
-						{
-							this.logError("onSwapItem(stash) #4");
-							return null;
-						}
+						if (!::Stash.swap(sourceItemIdx, firstEmptySlotIdx)) { ::logError("onSwapItem(stash) #4"); return null; }
+
+						sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
 					}
 				}
 			}
@@ -158,7 +143,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 					shopStash.insert(sourceItem.item, targetItemIdx);
 					::Stash.removeByIndex(sourceItemIdx);
 				}
-				else if (shopStash.hasEmptySlot())	// Dragging an Item on another item.
+				else	// Dragging an Item on another item.
 				{
 					local targetItem = shopStash.insert(sourceItem.item, targetItemIdx);
 					if (targetItem != null)
@@ -180,29 +165,17 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 
 		case "world-town-screen-vault-dialog-module.vault":
 			local sourceItem = shopStash.getItemAtIndex(sourceItemIdx);
-			if (sourceItem == null)
-			{
-				::logError("onSwapItem(found loot) #2");
-				return null;
-			}
+			if (sourceItem == null) { ::logError("onSwapItem(found loot) #2"); return null; }
 
 			if (targetItemIdx == null)	// We right-clicked on an item from the shop:
 			{
-				if (::Stash.hasEmptySlot())
-				{
-					local removedItem = shopStash.removeByIndex(sourceItemIdx);
+				if (!::Stash.hasEmptySlot()) return { Result = ::Const.UI.Error.NotEnoughStashSpace };
 
-					if (removedItem != null)
-					{
-						removedItem.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
-						::Stash.add(removedItem);
-					}
-				}
-				else
+				local removedItem = shopStash.removeByIndex(sourceItemIdx);
+				if (removedItem != null)
 				{
-					return {
-						Result = ::Const.UI.Error.NotEnoughStashSpace
-					};
+					removedItem.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
+					::Stash.add(removedItem);
 				}
 			}
 
@@ -210,15 +183,9 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 			{
 				if (sourceItemOwner == targetItemOwner)		// We dragged it onto another item slot from the Shop
 				{
-					if (shopStash.swap(sourceItemIdx, targetItemIdx))
-					{
-						sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
-					}
-					else
-					{
-						::logError("onSwapItem(found loot) #3");
-						return null;
-					}
+					if (!shopStash.swap(sourceItemIdx, targetItemIdx)) { ::logError("onSwapItem(found loot) #3"); return null; }
+
+					sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
 				}
 				else	// We dragged it onto an Itemslot from the Player Stash
 				{
@@ -229,7 +196,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 						::Stash.insert(sourceItem.item, targetItemIdx);
 						shopStash.removeByIndex(sourceItemIdx);
 					}
-					else if (::Stash.hasEmptySlot())	// Dragging an Item on another item.
+					else	// Dragging an Item on another item.
 					{
 						local targetItem = ::Stash.insert(sourceItem.item, targetItemIdx);
 						if (targetItem != null)
@@ -241,12 +208,6 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 							shopStash.removeByIndex(sourceItemIdx);
 						}
 						sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
-					}
-					else	// I don't know when this would ever be called. This can probably be removed
-					{
-						return {
-							Result = ::Const.UI.Error.NotEnoughStashSpace
-						};
 					}
 				}
 			}
