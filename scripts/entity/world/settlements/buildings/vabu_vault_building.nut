@@ -3,9 +3,9 @@ this.vabu_vault_building <- this.inherit("scripts/entity/world/settlements/build
 	m = {
 		Stash = null,
 
+		// Config
 		VaultSpaceLimit = 60,	// Maximum amount of slots unlockable in this vault
 		UnlockedSlots = 5,		// Unlocked Slots at the start
-
 		BaseCost = 100,
 		CostPerSlot = 20,	// Cost per already unlocked slot
 	},
@@ -122,10 +122,6 @@ this.vabu_vault_building <- this.inherit("scripts/entity/world/settlements/build
 
 	function isClosed()
 	{
-		if (this.isClosedFromSituations()) return true;
-
-		if (this.isUnlocked() == false) return true;
-
 		return false;
 	}
 
@@ -149,27 +145,10 @@ this.vabu_vault_building <- this.inherit("scripts/entity/world/settlements/build
 		this.m.Stash.onDeserialize(_in);
 	}
 
-	// New Functions
+// New Functions
 	function getCurrentSlotPrice()
 	{
 		return this.m.BaseCost + (this.m.CostPerSlot * this.getStash().getCapacity());
-	}
-
-	function isUnlocked()
-	{
-		if (::modVABU.Config.IsUnlockedFromNoblesAware && !::World.Ambitions.getAmbition("ambition.make_nobles_aware").isDone()) return false;
-
-		return true;
-	}
-
-	function isClosedFromSituations()
-	{
-		if (::modVABU.Config.ClosedFromSituations)
-		{
-			if (this.getSettlement().hasSituation("situation.warehouse_burned_down")) return true;
-			if (this.getSettlement().hasSituation("situation.razed")) return true;
-		}
-		return false;
 	}
 
 });

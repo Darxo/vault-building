@@ -7,8 +7,6 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		this.m.ID = "VaultDialogModule";
 	}
 
-// adjusted functions
-
 	function onSortButtonClicked()
 	{
 		this.town_shop_dialog_module.onSortButtonClicked();
@@ -269,6 +267,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		this.m.JSHandle.asyncCall("loadFromData", this.queryVaultList());
 	}
 
+// New Functions
 	// Same method that's used in the asset_manager
 	function removeExpiredFood()
 	{
@@ -288,7 +287,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		// These values never change while in the same screen
 		result.rawdelete("Title");
 		result.rawdelete("SubTitle");
-		result.rawdelete("VaultSpaceLimit");	// a bit redundant considering we are the ones writing it in there in the first place
+		result.rawdelete("VaultSpaceLimit");	// a bit ironic considering we are the ones writing it in there in the first place
 
 		return result;
 	}
