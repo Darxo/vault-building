@@ -51,6 +51,12 @@ WorldTownScreenVaultDialogModule.prototype.createDIV = function (_parentDiv)
 {
     WorldTownScreenShopDialogModule.prototype.createDIV.call(this, _parentDiv);
 
+    // Compatibility with EIMO by deactivating the SellAll Button they add
+	if ('mSellAllButton' in this)
+	{
+        this.mSellAllButton.enableButton(false);
+	}
+
     var self = this;
     this.mDialogContainer.findDialogFooterContainer().empty();  // Discard all the changes made from original createDIV so we apply out own
 
