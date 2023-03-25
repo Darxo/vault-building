@@ -1,7 +1,7 @@
 ::modVABU <- {
 	ID = "mod_VABU",
 	Name = "Vault Building",
-	Version = "0.1.0",
+	Version = "0.1.1",
 	Const = {
 		GuaranteedVaults = 2	// The game tries to spawn this many Vaults per new map.
 	},
