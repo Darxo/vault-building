@@ -28,7 +28,7 @@ Introduces a new Storage Building with unlockable storage slots that can be spaw
 ### Changes: ###
 
 0.1.1
-    - released as part of PlayerHideout mod
+	- released as part of PlayerHideout mod
 
 0.1.0
-    - released on discord
+	- released on discord

@@ -28,11 +28,11 @@
 		::include(file);
 	}
 
-    ::mods_registerJS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen_vault_dialog_module.js");
-    ::mods_registerJS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen.js");
-    ::mods_registerJS("mod_VABU/enums.js");
+	::mods_registerJS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen_vault_dialog_module.js");
+	::mods_registerJS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen.js");
+	::mods_registerJS("mod_VABU/enums.js");
 
-    ::mods_registerCSS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen_vault_dialog_module.css");
+	::mods_registerCSS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen_vault_dialog_module.css");
 
 	::Const.World.Buildings.Vaults <- 0;
 

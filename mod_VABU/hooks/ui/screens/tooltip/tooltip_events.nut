@@ -1,10 +1,10 @@
 ::mods_hookNewObject("ui/screens/tooltip/tooltip_events", function(o)
 {
-    local oldGeneral_queryUIElementTooltipData = o.general_queryUIElementTooltipData;
-    o.general_queryUIElementTooltipData = function ( _entityId, _elementId, _elementOwner )
-    {
-        if(_elementId == "world-town-screen.main-dialog-module.Vault")
-        {
+	local oldGeneral_queryUIElementTooltipData = o.general_queryUIElementTooltipData;
+	o.general_queryUIElementTooltipData = function ( _entityId, _elementId, _elementOwner )
+	{
+		if(_elementId == "world-town-screen.main-dialog-module.Vault")
+		{
 			local ret = [
 				{
 					id = 1,
@@ -19,7 +19,7 @@
 				{
 					id = 3,
 					type = "text",
-                    icon = "ui/icons/asset_food.png",
+					icon = "ui/icons/asset_food.png",
 					text = "Food will still spoil!"
 				}
 			];
@@ -55,7 +55,7 @@
 				}
 			}
 			return ret;
-        }
+		}
 
 		if (_elementId == "world-town-screen.vault-dialog-module.LeaveButton")
 		{
@@ -145,11 +145,11 @@
 			];
 		}
 
-        return oldGeneral_queryUIElementTooltipData( _entityId, _elementId, _elementOwner );;
-    }
+		return oldGeneral_queryUIElementTooltipData( _entityId, _elementId, _elementOwner );;
+	}
 
-    local oldTactical_helper_addHintsToTooltip = o.tactical_helper_addHintsToTooltip;
-    o.tactical_helper_addHintsToTooltip = function ( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked = false )
+	local oldTactical_helper_addHintsToTooltip = o.tactical_helper_addHintsToTooltip;
+	o.tactical_helper_addHintsToTooltip = function ( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked = false )
 	{
 		local ret = oldTactical_helper_addHintsToTooltip( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked );
 		if (_itemOwner == "world-town-screen-vault-dialog-module.vault")
@@ -176,8 +176,8 @@
 		return ret
 	}
 
-    local oldStrategic_queryUIItemTooltipData = o.strategic_queryUIItemTooltipData;
-    o.strategic_queryUIItemTooltipData = function ( _entityId, _itemId, _itemOwner )
+	local oldStrategic_queryUIItemTooltipData = o.strategic_queryUIItemTooltipData;
+	o.strategic_queryUIItemTooltipData = function ( _entityId, _itemId, _itemOwner )
 	{
 		if (_itemOwner == "world-town-screen-vault-dialog-module.stash")
 		{
