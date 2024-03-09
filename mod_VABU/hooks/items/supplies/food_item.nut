@@ -3,7 +3,9 @@
 	local oldOnAddedToStash = o.onAddedToStash;
 	o.onAddedToStash = function( _stashID )
 	{
-		if ( ::World.State.getCurrentTown() == null) return oldOnAddedToStash( _stashID );
+		if (::World.State == null) return oldOnAddedToStash(_stashID);
+		if (::World.State.getCurrentTown() == null) return oldOnAddedToStash(_stashID);
+
 		local building = ::World.State.getCurrentTown().getCurrentBuilding();
 		if (building == null || building.getID() != "building.vault") return oldOnAddedToStash( _stashID );
 
