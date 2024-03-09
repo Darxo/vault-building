@@ -27,34 +27,6 @@
 	::include("mod_VABU/load");		// Load mod adjustments and other hooks
 	::include("mod_VABU/ui/load");		// Load JS Adjustments and Hooks
 
-	::Const.World.Buildings.Vaults <- 0;
-
-	local oldReset = ::Const.World.Buildings.reset;
-	::Const.World.Buildings.reset = function()
-	{
-		oldReset();
-		this.Vaults = 0;
-	}
-
-/*	// Insert a custom id in a mod-friendly way
-	{	// We want our new id right at the first empty position
-		local positionToCheck = 10;
-		local foundPosition = true;
- 		while (true)
-		{
-			foreach(errorID in ::Const.UI.Error)
-			{
-				if (foundPosition == errorID)
-				{
-					positionToCheck++;
-					foundPosition = false;
-					break;
-				}
-			}
-			if (foundPosition) break;
-		}
-	}*/
-
 	// It is important that this is the same/synchronized with the Error Code on javascript side
 	::Const.UI.Error.NotEnoughVaultSpace <- 401;    // TODO: Replace once MSU implements some nice cross-sync feature
 

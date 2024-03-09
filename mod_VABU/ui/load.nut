@@ -1,6 +1,5 @@
 ::Hooks.registerJS("ui/mods/mod_VABU/enums.js");
 
-local prefixLen = "ui/mods/".len();
 foreach(file in ::IO.enumerateFiles("ui/mods/mod_VABU/js_hooks"))
 {
 	::Hooks.registerJS(file + ".js");
