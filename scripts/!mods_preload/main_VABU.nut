@@ -17,22 +17,15 @@
 	}
 }
 
-::mods_registerMod(::modVABU.ID, ::modVABU.Version, ::modVABU.Name);
+::modVABU.HooksMod <- ::Hooks.register(::modVABU.ID, ::modVABU.Version, ::modVABU.Name);
+::modVABU.HooksMod.require(["mod_msu"]);
 
-::mods_queue(::modVABU.ID, "mod_msu, >mod_legends, >mod_URUI", function()
+::modVABU.HooksMod.queue(">mod_msu", function()
 {
 	::modVABU.Mod <- ::MSU.Class.Mod(::modVABU.ID, ::modVABU.Version, ::modVABU.Name);
 
-	foreach (file in ::IO.enumerateFiles("mod_VABU/hooks"))
-	{
-		::include(file);
-	}
-
-	::mods_registerJS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen_vault_dialog_module.js");
-	::mods_registerJS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen.js");
-	::mods_registerJS("mod_VABU/enums.js");
-
-	::mods_registerCSS("mod_VABU/screens/world/modules/world_town_screen/world_town_screen_vault_dialog_module.css");
+	::include("mod_VABU/load");		// Load mod adjustments and other hooks
+	::include("mod_VABU/ui/load");		// Load JS Adjustments and Hooks
 
 	::Const.World.Buildings.Vaults <- 0;
 

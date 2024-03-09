@@ -1,7 +1,5 @@
-::mods_hookNewObject("ui/screens/tooltip/tooltip_events", function(o)
-{
-	local oldGeneral_queryUIElementTooltipData = o.general_queryUIElementTooltipData;
-	o.general_queryUIElementTooltipData = function ( _entityId, _elementId, _elementOwner )
+::modVABU.HooksMod.hook("scripts/ui/screens/tooltip/tooltip_events", function(q) {
+	q.general_queryUIElementTooltipData = @(__original) function( _entityId, _elementId, _elementOwner )
 	{
 		if(_elementId == "world-town-screen.main-dialog-module.Vault")
 		{
@@ -145,13 +143,12 @@
 			];
 		}
 
-		return oldGeneral_queryUIElementTooltipData( _entityId, _elementId, _elementOwner );;
+		return __original( _entityId, _elementId, _elementOwner );;
 	}
 
-	local oldTactical_helper_addHintsToTooltip = o.tactical_helper_addHintsToTooltip;
-	o.tactical_helper_addHintsToTooltip = function ( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked = false )
+	q.tactical_helper_addHintsToTooltip = @(__original) function( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked = false )
 	{
-		local ret = oldTactical_helper_addHintsToTooltip( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked );
+		local ret = __original( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked );
 		if (_itemOwner == "world-town-screen-vault-dialog-module.vault")
 		{
 			if (!::Stash.hasEmptySlot())
@@ -176,8 +173,7 @@
 		return ret
 	}
 
-	local oldStrategic_queryUIItemTooltipData = o.strategic_queryUIItemTooltipData;
-	o.strategic_queryUIItemTooltipData = function ( _entityId, _itemId, _itemOwner )
+	q.strategic_queryUIItemTooltipData = @(__original) function( _entityId, _itemId, _itemOwner )
 	{
 		if (_itemOwner == "world-town-screen-vault-dialog-module.stash")
 		{
@@ -206,7 +202,8 @@
 
 			return null;
 		}
-		return oldStrategic_queryUIItemTooltipData( _entityId, _itemId, _itemOwner );
+
+		return __original( _entityId, _itemId, _itemOwner );
 	}
 
 });

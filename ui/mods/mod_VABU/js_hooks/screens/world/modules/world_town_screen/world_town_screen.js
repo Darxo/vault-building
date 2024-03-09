@@ -1,5 +1,3 @@
-
-
 var VABU_onDisconnection = WorldTownScreen.prototype.onDisconnection;
 WorldTownScreen.prototype.onDisconnection = function ()
 {

@@ -1,9 +1,6 @@
-::mods_hookDescendants("items/item", function ( o ) // copied from Taro Stronghold mod
-{
-	// sets buy/sell price to 0 when using stronghold marketplace
-	local getBuyPrice = ::mods_getMember(o, "getBuyPrice")
-	local getSellPrice = ::mods_getMember(o, "getSellPrice")
-	o.getBuyPrice <- function()
+::modVABU.HooksMod.hookTree("scripts/items/item", function(q) {
+	// sets buy/sell price to 0 when using the vault building
+	q.getBuyPrice = @(__original) function()
 	{
 		if (("State" in ::World) && ::World.State != null && ::World.State.getCurrentTown() != null && ::World.State.getCurrentTown().m.CurrentBuilding != null && ::World.State.getCurrentTown().m.CurrentBuilding.m.ID == "building.vault")
 		{
@@ -11,11 +8,11 @@
 		}
 		else
 		{
-			return getBuyPrice();
+			return __original();
 		}
 	}
 
-	o.getSellPrice <- function()
+	q.getSellPrice = @(__original) function()
 	{
 		if (("State" in ::World) && ::World.State != null && ::World.State.getCurrentTown() != null && ::World.State.getCurrentTown().m.CurrentBuilding != null && ::World.State.getCurrentTown().m.CurrentBuilding.m.ID == "building.vault")
 		{
@@ -23,7 +20,7 @@
 		}
 		else
 		{
-			return getSellPrice();
+			return __original();
 		}
 	}
 });
