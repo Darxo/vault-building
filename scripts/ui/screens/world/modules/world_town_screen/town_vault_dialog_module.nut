@@ -119,19 +119,6 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 				}
 				else { ::logError("onSwapItem(stash) #3.1"); return null; }
 			}
-			else if (sourceItemOwner == targetItemOwner)	// we right-clicked an item in the stash
-			{
-				if (!this.Stash.isLastTakenSlot(sourceItemIdx))
-				{
-					local firstEmptySlotIdx = this.Stash.getFirstEmptySlot();
-					if (firstEmptySlotIdx != null)
-					{
-						if (!::Stash.swap(sourceItemIdx, firstEmptySlotIdx)) { ::logError("onSwapItem(stash) #4"); return null; }
-
-						sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
-					}
-				}
-			}
 			else	// we dragge an Item from the playerstash into the shop stash
 			{
 				local targetItem = this.Stash.getItemAtIndex(targetItemIdx);
