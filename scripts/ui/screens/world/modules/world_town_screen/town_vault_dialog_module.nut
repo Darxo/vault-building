@@ -102,24 +102,22 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 				local removedItem = ::Stash.removeByIndex(sourceItemIdx);
 				if (removedItem != null)
 				{
-					removedItem.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
 					shopStash.add(removedItem);
 				}
 			}
-
-			if (targetItemIdx != null && sourceItemOwner == targetItemOwner)	// we swapped an item within the stash
+			else if (sourceItemOwner == targetItemOwner)	// we swapped an item within the stash
 			{
 				if (sourceItemOwner == targetItemOwner)
 				{
-					if (::Stash.swap(sourceItemIdx, targetItemIdx))
+					if (!::Stash.swap(sourceItemIdx, targetItemIdx))
 					{
-						sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
+						::logError("onSwapItem(stash) #3");
+						return null;
 					}
-					else { ::logError("onSwapItem(stash) #3"); return null; }
 				}
 				else { ::logError("onSwapItem(stash) #3.1"); return null; }
 			}
-			else	// we dragge an Item from the playerstash into the shop stash
+			else	// we dragged an Item from the playerstash into the shop stash
 			{
 				local targetItem = this.Stash.getItemAtIndex(targetItemIdx);
 
@@ -139,9 +137,10 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 					{
 						::Stash.removeByIndex(sourceItemIdx);
 					}
-					sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
 				}
 			}
+
+			sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
 
 			local result = this.queryShopInformationLight();
 			result.rawdelete("NextSlotCost");
@@ -159,43 +158,37 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 				local removedItem = shopStash.removeByIndex(sourceItemIdx);
 				if (removedItem != null)
 				{
-					removedItem.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
 					::Stash.add(removedItem);
 				}
 			}
-
-			if (targetItemIdx != null)	// We dragged&dropped an item from the shop
+			else if (sourceItemOwner == targetItemOwner)		// We dragged an item from the shop onto another item slot from the Shop
 			{
-				if (sourceItemOwner == targetItemOwner)		// We dragged it onto another item slot from the Shop
-				{
-					if (!shopStash.swap(sourceItemIdx, targetItemIdx)) { ::logError("onSwapItem(found loot) #3"); return null; }
+				if (!shopStash.swap(sourceItemIdx, targetItemIdx)) { ::logError("onSwapItem(found loot) #3"); return null; }
+			}
+			else	// We dragged it onto an Itemslot from the Player Stash
+			{
+				local targetItem = this.Stash.getItemAtIndex(targetItemIdx);
 
-					sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
+				if (targetItem != null && targetItem.item == null)	// Dragging an Item on an empty slot
+				{
+					::Stash.insert(sourceItem.item, targetItemIdx);
+					shopStash.removeByIndex(sourceItemIdx);
 				}
-				else	// We dragged it onto an Itemslot from the Player Stash
+				else	// Dragging an Item on another item.
 				{
-					local targetItem = this.Stash.getItemAtIndex(targetItemIdx);
-
-					if (targetItem != null && targetItem.item == null)	// Dragging an Item on an empty slot
+					local targetItem = ::Stash.insert(sourceItem.item, targetItemIdx);
+					if (targetItem != null)
 					{
-						::Stash.insert(sourceItem.item, targetItemIdx);
-						shopStash.removeByIndex(sourceItemIdx);
+						shopStash.insert(targetItem, sourceItemIdx);
 					}
-					else	// Dragging an Item on another item.
+					else
 					{
-						local targetItem = ::Stash.insert(sourceItem.item, targetItemIdx);
-						if (targetItem != null)
-						{
-							shopStash.insert(targetItem, sourceItemIdx);
-						}
-						else
-						{
-							shopStash.removeByIndex(sourceItemIdx);
-						}
-						sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
+						shopStash.removeByIndex(sourceItemIdx);
 					}
 				}
 			}
+
+			sourceItem.item.playInventorySound(::Const.Items.InventoryEventType.PlacedInBag);
 
 			local result = this.queryShopInformationLight();
 			result.rawdelete("NextSlotCost");
