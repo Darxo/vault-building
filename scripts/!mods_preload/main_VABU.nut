@@ -1,7 +1,7 @@
 ::modVABU <- {
 	ID = "mod_VABU",
 	Name = "Vault Building",
-	Version = "0.1.1",
+	Version = "0.2.0",
 	Const = {
 		GuaranteedVaults = 2	// The game tries to spawn this many Vaults per new map.
 	},
@@ -20,7 +20,7 @@
 ::modVABU.HooksMod <- ::Hooks.register(::modVABU.ID, ::modVABU.Version, ::modVABU.Name);
 ::modVABU.HooksMod.require(["mod_msu"]);
 
-::modVABU.HooksMod.queue(">mod_msu", function()
+::modVABU.HooksMod.queue([">mod_msu"], function()
 {
 	::modVABU.Mod <- ::MSU.Class.Mod(::modVABU.ID, ::modVABU.Version, ::modVABU.Name);
 
