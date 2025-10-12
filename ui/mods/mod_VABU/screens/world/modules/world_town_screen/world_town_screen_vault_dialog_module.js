@@ -272,6 +272,11 @@ var WorldTownScreenVaultDialogModule = function(_parent)
 		itemData.owner = _owner;
 		result.data('item', itemData);
 
+		// Feat: Make this mod compatibly with EIMO 10.0.5
+		// With 10.0.5 EIMO overwrites the createItemSlot function, which we also overwrite here, and EIMO adds the following data to item slots
+		// Lateron EIMO expects that data to exist, which it wouldnt in the VaultDialog due to our overwrite, so we add it here manually for compatibility reasons
+		result.data('eimo', {forSale: false, favorite: false, idFavorite: false, repairProfit: 0 });
+
 		// add event handler
 		var dropHandler = function (_source, _target)
 		{
