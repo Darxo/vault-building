@@ -207,7 +207,7 @@ this.town_vault_dialog_module <- this.inherit("scripts/ui/screens/world/modules/
 		local currentMoney = ::World.Assets.getMoney();
 		local cost = this.getBuilding().getCurrentSlotPrice();
 
-		if (currentMoney - cost < 0)
+		if (cost > currentMoney)
 		{
 			return {
 				Result = ::Const.UI.Error.NotEnoughMoney,
